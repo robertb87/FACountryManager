@@ -45,6 +45,23 @@ public struct Country: Hashable {
         self.nativeName = ""
     }
     
+    public init(flag: String, iso3: String, name: String, region: Region, capital: String, borders: [String], latlng: Double, nativeName: String, population: Int, area: Double) {
+        
+        self.alpha3 = iso3
+        self.area =  area
+        self.borders = borders
+        self.capital = capital
+        self.flag = flag
+        self.latlng = [latlng]
+        self.name = name
+        self.nativeName = nativeName
+        self.population = population
+        self.region = region
+
+        self.timesCorrect = 0
+        self.timesWrong = 0
+        self.lastPracticed = 0
+    }
 
 
     //MARK:- PUBLIC FUNCS & ENUMS
@@ -102,6 +119,7 @@ public struct Country: Hashable {
         self.borders = borders
         self.nativeName = nativeName
     }
+    
 }
 
 //MARK: - EXTENSION CODABLE
