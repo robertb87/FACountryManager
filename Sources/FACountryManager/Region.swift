@@ -27,6 +27,22 @@ public enum Region: String, CaseIterable, Identifiable, Encodable, Decodable {
          case unknownValue
      }
     
+    public init(from code: String) {
+        switch code {
+        case "AF": self = .africa
+        case "AN": self = .antartica
+        case "AS": self = .asia
+        case "EU": self = .europe
+        case "NA": self = .northAmerica
+        case "AU": self = .australia
+        case "SA": self = .southAmerica
+        case "OC": self = .oceania
+        case "AC": self = .all
+        default:
+            self = .all
+        }
+    }
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let rawValue = try container.decode(String.self, forKey: .rawValue)
