@@ -7,12 +7,15 @@
 
 import Foundation
 
-public struct Country: Hashable {
-    
+public struct Country: Hashable, Identifiable {
+    public typealias ID = ISO3
+    public var id: ISO3 { alpha3 }
+
+
     //MARK:- PUBLIC PROPERTIES
     
     public var flag: String
-    public let alpha3: String
+    public let alpha3: ISO3
     public let name: String
     public let region: Region
     public let timesCorrect: Int
@@ -30,7 +33,7 @@ public struct Country: Hashable {
     
     public init() {
         self.flag = ""
-        self.alpha3 = ""
+        self.alpha3 = .RNB
         self.name = ""
         self.region = .all
         self.timesCorrect = 0
@@ -45,7 +48,7 @@ public struct Country: Hashable {
         self.nativeName = ""
     }
     
-    public init(flag: String, iso3: String, name: String, region: Region, capital: String, borders: [String], latlng: Double, nativeName: String, population: Int, area: Double) {
+    public init(flag: String, iso3: ISO3, name: String, region: Region, capital: String, borders: [String], latlng: Double, nativeName: String, population: Int, area: Double) {
         
         self.alpha3 = iso3
         self.area =  area
@@ -134,8 +137,8 @@ extension Country: Codable {
         } else { flag = "e" }
         
         if let value = try? values.decode(String.self, forKey: .alpha3) {
-            alpha3 = CountryFlag(rawValue: value)?.alpha3() ?? value
-        } else { alpha3 = "e" }
+            alpha3 = ISO3(rawValue: value) ?? .RNB
+        } else { alpha3 = .RNB }
         
         if let value = try? values.decode(Region.self, forKey: .region) {
             region = value
@@ -185,7 +188,7 @@ extension Country: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(flag, forKey: .flag)
-        try container.encode(alpha3, forKey: .alpha3)
+        try container.encode(alpha3.rawValue, forKey: .alpha3)
         try container.encode(name, forKey: .name)
         try container.encode(region, forKey: .region)
         try container.encode(timesCorrect, forKey: .timesCorrect)
