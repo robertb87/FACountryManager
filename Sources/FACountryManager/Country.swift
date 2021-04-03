@@ -66,6 +66,23 @@ public struct Country: Hashable, Identifiable {
         self.lastPracticed = 0
     }
 
+    public init(quickName: String) {
+        self.flag = ""
+        self.alpha3 = .RNB
+        self.name = quickName
+        self.region = .all
+        self.timesCorrect = 0
+        self.timesWrong = 0
+        self.lastPracticed = 0
+
+        self.capital = ""
+        self.latlng = [1]
+        self.population = 0
+        self.area = 0
+        self.borders = [String]()
+        self.nativeName = ""
+    }
+
 
     //MARK:- PUBLIC FUNCS & ENUMS
     

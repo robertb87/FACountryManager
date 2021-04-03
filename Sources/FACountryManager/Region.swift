@@ -8,7 +8,7 @@
 import Foundation
 
 public enum Region: String, CaseIterable, Identifiable, Encodable, Decodable {
-    public var id : String { UUID().uuidString }
+    public var id : String { self.rawValue }
     case africa = "Africa"
     case antartica = "Antarica"
     case asia = "Asia"
